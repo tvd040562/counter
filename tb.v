@@ -2,6 +2,7 @@
 `define PERIOD 10
 module tb;
     reg clk, reset, preload, up_dn;
+    reg [3:0] delta;
     reg [7:0] pl_data;
     wire [7:0] qout;
 
@@ -10,6 +11,7 @@ module tb;
         .reset(reset),
         .preload(preload),
         .up_dn(up_dn),
+        .delta(delta),
         .pl_data(pl_data),
         .qout(qout)
     );
@@ -40,6 +42,7 @@ module tb;
         reset = 1;
         preload = 0;
         up_dn = 1;
+        delta = 2;
         pl_data = 0;
         waitforclk(3);
         reset = 0;

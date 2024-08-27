@@ -3,6 +3,7 @@ module counter (
     input reset,
     input preload,
     input up_dn,
+    input [3:0] delta,
     input [7:0] pl_data,
     output reg[7:0] qout
 );
@@ -14,7 +15,7 @@ module counter (
         else if (preload)
             qout = pl_data;
         else if (up_dn)
-            qout = qout + 8'h1;
-        else qout = qout - 8'h1;
+            qout = qout + delta;
+        else qout = qout - delta;
     end
 endmodule

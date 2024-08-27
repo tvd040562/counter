@@ -14,8 +14,12 @@ module counter (
             qout = 8'h0;
         else if (preload)
             qout = pl_data;
-        else if (up_dn)
-            qout = qout + delta;
-        else qout = qout - delta;
+        else if (up_dn) begin
+            if (qout <= (255 - delta))
+                qout = qout + delta;
+        end else begin
+            if (qout >= delta)
+                qout = qout - delta;
+        end
     end
 endmodule

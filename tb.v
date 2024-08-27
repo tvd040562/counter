@@ -47,11 +47,14 @@ module tb;
         waitforclk(3);
         reset = 0;
         waitforclk(30);
-        pl_data = 50; preload = 1;
+        pl_data = 245; preload = 1;
         waitforclk(1);
         preload = 0;
         waitforclk(30);
         up_dn = 0;
+        pl_data = 15; preload = 1;
+        waitforclk(1);
+        preload = 0;
         waitforclk(30);
         $finish();
     end

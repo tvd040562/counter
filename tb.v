@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `define PERIOD 10
 module tb;
-    reg clk, reset, preload;
+    reg clk, reset, preload, up_dn;
     reg [7:0] pl_data;
     wire [7:0] qout;
 
@@ -9,6 +9,7 @@ module tb;
         .clk(clk),
         .reset(reset),
         .preload(preload),
+        .up_dn(up_dn),
         .pl_data(pl_data),
         .qout(qout)
     );
@@ -38,6 +39,7 @@ module tb;
     begin
         reset = 1;
         preload = 0;
+        up_dn = 1;
         pl_data = 0;
         waitforclk(3);
         reset = 0;
@@ -45,6 +47,8 @@ module tb;
         pl_data = 50; preload = 1;
         waitforclk(1);
         preload = 0;
+        waitforclk(30);
+        up_dn = 0;
         waitforclk(30);
         $finish();
     end

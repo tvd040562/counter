@@ -1,0 +1,10 @@
+{
+  "DESIGN_NAME": "counter",
+  "VERILOG_FILES": "dir::counter.v",
+  "CLOCK_PORT": "clk",
+  "CLOCK_PERIOD": 4,
+  "BASE_SDC_FILE": "dir::counter.sdc",
+  "MAX_FANOUT_CONSTRAINT": 6,
+  "FP_CORE_UTIL": 40,
+  "PL_TARGET_DENSITY_PCT": "expr::($FP_CORE_UTIL + 10.0)"
+}

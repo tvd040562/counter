@@ -8,6 +8,6 @@ module counter (clk, reset, qout);
         if (reset)
             qout = 8'h0;
         else
-            qout <= qout + 8'h1;
+            qout = qout + 8'h1;
     end
 endmodule

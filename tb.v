@@ -5,7 +5,7 @@ module tb;
     reg [3:0] delta;
     reg [7:0] pl_data;
     wire [7:0] qout;
-    wire [39:0] freq_out;
+    wire [19:0] freq_out;
 
     counter dut (
         .clk(clk),

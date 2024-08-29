@@ -6,10 +6,10 @@ module counter (
     input [3:0] delta,
     input [7:0] pl_data,
     output reg[7:0] qout,
-    output [39:0] freq_out
+    output [19:0] freq_out
 );
 
-	wire [39:0] sin_table[255:0];
+	wire [19:0] sin_table[255:0];
 	`include "sin_table.vh"
 	assign freq_out = sin_table[qout];
 

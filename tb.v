@@ -5,6 +5,7 @@ module tb;
     reg [3:0] delta;
     reg [7:0] pl_data;
     wire [7:0] qout;
+    wire [39:0] freq_out;
 
     counter dut (
         .clk(clk),
@@ -13,7 +14,8 @@ module tb;
         .up_dn(up_dn),
         .delta(delta),
         .pl_data(pl_data),
-        .qout(qout)
+        .qout(qout),
+        .freq_out(freq_out)
     );
 
     task waitforclk (input integer n);
@@ -42,20 +44,11 @@ module tb;
         reset = 1;
         preload = 0;
         up_dn = 1;
-        delta = 2;
+        delta = 6;
         pl_data = 0;
         waitforclk(3);
         reset = 0;
-        waitforclk(30);
-        pl_data = 245; preload = 1;
-        waitforclk(1);
-        preload = 0;
-        waitforclk(30);
-        up_dn = 0;
-        pl_data = 15; preload = 1;
-        waitforclk(1);
-        preload = 0;
-        waitforclk(30);
+        waitforclk(3000);
         $finish();
     end
 endmodule

@@ -44,11 +44,19 @@ module tb;
         reset = 1;
         preload = 0;
         up_dn = 1;
-        delta = 6;
+        delta = 1;
         pl_data = 0;
         waitforclk(3);
         reset = 0;
-        waitforclk(3000);
+        waitforclk(1000);
+        delta = 2;
+        waitforclk(1000);
+        delta = 3;
+        waitforclk(1000);
+        delta = 4;
+        waitforclk(1000);
+        delta = 5;
+        waitforclk(1000);
         $finish();
     end
 endmodule

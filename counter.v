@@ -9,8 +9,8 @@ module counter (
     output [19:0] freq_out
 );
 
-	wire [19:0] sin_table[255:0];
-	`include "sin_table.vh"
+	reg [19:0] sin_table[0:255];
+	//`include "sin_table.vh"
 	assign freq_out = sin_table[qout];
 
     always @(posedge clk or posedge reset)

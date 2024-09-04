@@ -39,6 +39,8 @@ module tb;
         $dumpvars();
     end
 
+    initial $readmemh("mem.hex", dut.sin_table);
+
     initial 
     begin
         reset = 1;

@@ -1,5 +1,5 @@
 a.out: *.v
-	iverilog counter.v tb.v
+	iverilog counter.v tb.v RAM/sky130_sram_1kbyte_1rw1r_32x256_8.v
 
 tb.vcd: a.out
 	./a.out
@@ -7,5 +7,5 @@ tb.vcd: a.out
 debug: tb.vcd
 	gtkwave tb.vcd
 
-clean: *.out *.vcd
+clean: 
 	rm -f *.out *.vcd

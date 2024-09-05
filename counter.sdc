@@ -7,12 +7,10 @@ current_design counter
 ###############################################################################
 create_clock -name clk -period $::env(CLOCK_PERIOD) [get_ports {clk}]
 set_clock_transition 0.1500 [get_clocks {clk}]
-set_clock_uncertainty 0.2500 clk
-set IO_DELAY [expr $::env(CLOCK_PERIOD)/2]
-set_input_delay 0.00 -clock [get_clocks {clk}] -add_delay [get_ports {delta[0]}]
-set_input_delay 0.00 -clock [get_clocks {clk}] -add_delay [get_ports {delta[1]}]
-set_input_delay 0.00 -clock [get_clocks {clk}] -add_delay [get_ports {delta[2]}]
-set_input_delay 0.00 -clock [get_clocks {clk}] -add_delay [get_ports {delta[3]}]
+set_clock_uncertainty 0.2000 clk
+set IO_DELAY [expr $::env(CLOCK_PERIOD)/4]
+set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {delta*}]
+set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {up_dn}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {pl_data[0]}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {pl_data[1]}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {pl_data[2]}]
@@ -23,7 +21,6 @@ set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {pl_da
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {pl_data[7]}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {preload}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {reset}]
-set_input_delay 0.00 -clock [get_clocks {clk}] -add_delay [get_ports {up_dn}]
 set_output_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {qout[0]}]
 set_output_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {qout[1]}]
 set_output_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {qout[2]}]
@@ -47,10 +44,7 @@ set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_ris
 set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {preload}]
 set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {reset}]
 set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {up_dn}]
-set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {delta[3]}]
-set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {delta[2]}]
-set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {delta[1]}]
-set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {delta[0]}]
+set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {delta*}]
 set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {pl_data[7]}]
 set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {pl_data[6]}]
 set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {pl_data[5]}]
@@ -62,6 +56,7 @@ set_driving_cell -lib_cell sky130_fd_sc_hd__inv_2 -pin {Y} -input_transition_ris
 ###############################################################################
 # Design Rules
 ###############################################################################
-set_max_transition 0.7500 [current_design]
+set_max_transition $::env(MAX_TRANSITION_CONSTRAINT) [current_design]
 set_max_capacitance 0.2000 [current_design]
-set_max_fanout 6.0000 [current_design]
+set_max_fanout $::env(MAX_FANOUT_CONSTRAINT) [current_design]
+set_false_path -from [get_ports {reset}] -to [get_clocks {clk}]

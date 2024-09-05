@@ -5,11 +5,11 @@ module tb;
     reg [3:0] delta;
     reg [7:0] pl_data;
     wire [7:0] qout;
-    wire [19:0] freq_out;
+    wire [31:0] sine_out, cosine_out;
     reg csb0, web0, csb1;
     reg [3:0] wmask0;
     reg [7:0] addr0;
-    reg [31:0] din0;
+    reg [31:0] din00, din01;
     reg [31:0] mem[0:255];
 
     counter dut (
@@ -20,13 +20,15 @@ module tb;
         .delta(delta),
         .pl_data(pl_data),
         .qout(qout),
-        .freq_out(freq_out),
+        .sine_out(sine_out),
+        .cosine_out(cosine_out),
 	.csb1(csb1),
 	.csb0(csb0),
 	.web0(web0),
 	.wmask0(wmask0),
 	.addr0(addr0),
-	.din0(din0)
+	.din00(din00),
+	.din01(din01)
     );
 
     task waitforclk (input integer n);
@@ -42,7 +44,8 @@ module tb;
 	for (i = 0; i < 256; i = i+1) begin
 	    addr0 = i;
 	    //din0 = mem[i];
-	    din0 = $sin($acos(-1)*i/128.0)*(2**31-1);
+	    din00 = $sin($acos(-1)*i/128.0)*(2**31-1);
+	    din01 = $cos($acos(-1)*i/128.0)*(2**31-1);
 	    waitforclk(1);
 	end
     end

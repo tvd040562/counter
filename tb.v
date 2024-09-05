@@ -6,7 +6,7 @@ module tb;
     reg [7:0] pl_data;
     wire [7:0] qout;
     wire [19:0] freq_out;
-    reg csb0, web0;
+    reg csb0, web0, csb1;
     reg [3:0] wmask0;
     reg [7:0] addr0;
     reg [31:0] din0;
@@ -21,6 +21,7 @@ module tb;
         .pl_data(pl_data),
         .qout(qout),
         .freq_out(freq_out),
+	.csb1(csb1),
 	.csb0(csb0),
 	.web0(web0),
 	.wmask0(wmask0),
@@ -40,7 +41,8 @@ module tb;
     begin
 	for (i = 0; i < 256; i = i+1) begin
 	    addr0 = i;
-	    din0 = mem[i];
+	    //din0 = mem[i];
+	    din0 = $sin($acos(-1)*i/128.0)*(2**31-1);
 	    waitforclk(1);
 	end
     end
@@ -61,7 +63,7 @@ module tb;
     end
 
     //initial $readmemh("mem.hex", dut.sin_table);
-    initial $readmemh("mem.hex", mem);
+    //initial $readmemh("mem.hex", mem);
 
     initial 
     begin
@@ -70,12 +72,16 @@ module tb;
         up_dn = 1;
         delta = 1;
         pl_data = 0;
+	csb0 = 1;
+	csb1 = 1;
         waitforclk(3);
         reset = 0;
 	csb0 = 0;
 	web0 = 0;
 	wmask0 = 4'hF;
 	init_mem();
+	csb1 = 0;
+	csb0 = 1;
         waitforclk(1000);
         delta = 2;
         waitforclk(1000);

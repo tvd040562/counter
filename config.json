@@ -7,14 +7,14 @@
   "FALLBACK_SDC_FILE": "dir::counter.sdc",
   "FP_PDN_MULTILAYER": true,
   "FP_SIZING": "absolute",
-  "DIE_AREA": [0, 0, 1125, 500],
+  "DIE_AREA": [0, 0, 1500, 550],
   "MAX_FANOUT_CONSTRAINT": 6,
   "MAX_TRANSITION_CONSTRAINT": 0.9,
   "FP_CORE_UTIL": 50,
   "VDD_NETS": "vccd1",
   "GND_NETS": "vssd1",
   "MACROS": {
-  	"sky130_sram_1kbyte_1rw1r_32x256_8": {
+  	"sky130_sram_2kbyte_1rw1r_32x512_8": {
       		"instances": {
           		"u_mem0": {
               			"location": [
@@ -25,17 +25,17 @@
           		},
           		"u_mem1": {
               			"location": [
-                  			600,
+                  			750,
                   			50
               			],
               			"orientation": "N"
           		}
       		},
       		"gds": [
-          		"dir::RAM/sky130_sram_1kbyte_1rw1r_32x256_8.gds"
+          		"dir::sram_macros/gds/sky130_sram_2kbyte_1rw1r_32x512_8.gds"
       		],
       		"lef": [
-          		"dir::RAM/sky130_sram_1kbyte_1rw1r_32x256_8.lef"
+          		"dir::sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef"
       		]
   	}
   },

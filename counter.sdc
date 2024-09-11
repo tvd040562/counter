@@ -8,7 +8,7 @@ current_design counter
 create_clock -name clk -period $::env(CLOCK_PERIOD) [get_ports {clk}]
 set_clock_transition 0.1500 [get_clocks {clk}]
 set_clock_uncertainty 0.2000 clk
-set IO_DELAY [expr $::env(CLOCK_PERIOD)/4]
+set IO_DELAY [expr $::env(CLOCK_PERIOD)/3]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {delta*}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {up_dn}]
 set_input_delay $IO_DELAY -clock [get_clocks {clk}] -add_delay [get_ports {pl_data[0]}]
